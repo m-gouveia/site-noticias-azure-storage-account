@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Gerir Noticias";
+}
+
+<div class="text-center">
+    <h2 class="display-4">Gerir Noticias</h2>
+</div>
+
+<br />
+
+@*<div class="tab-content">
+    <form action="/GerirNoticia/Salvar" method="post" enctype="multipart/form-data">
+
+        <input type="text" name="Titulo" />
+        <textarea rows="6" type="text" name="Descricao"></textarea>
+        <input type="file" name="ArquivoImagem" />
+
+        <input type="submit" value="Salvar" />
+    </form>
+</div>*@
+
+<form class="col-md-6" action="/GerirNoticia/Salvar" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="Titulo">Título</label>
+        <input type="text" class="form-control" name="Titulo">
+    </div>
+
+    <div class="form-group">
+        <label for="Descricao">Descrição</label>
+        <textarea class="form-control" name="Descricao" rows="6"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Faça upload da imagem">Faça upload da imagem</label>
+        <input type="file" class="form-control-file" name="ArquivoImagem">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
