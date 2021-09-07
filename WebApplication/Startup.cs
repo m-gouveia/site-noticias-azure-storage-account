@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebApplication.Blob;
 
 namespace WebApplication
 {
@@ -18,8 +19,10 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddControllersWithViews();
+            services.AddControllersWithViews();
+
+            string blobStrConnection = Configuration["ConnectionStrings:BlobStorage"];
+            services.AddSingleton<IBlobHandler>(new BlobHandler(blobStrConnection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
