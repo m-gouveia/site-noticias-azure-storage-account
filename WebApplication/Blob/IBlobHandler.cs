@@ -4,6 +4,6 @@ namespace WebApplication.Blob
 {
     public interface IBlobHandler
     {
-        void SaveToContainer(NoticiaModel model);
+        void SaveToContainer(NoticiaModel model, string nomeArquivo);
     }
 }

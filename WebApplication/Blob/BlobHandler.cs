@@ -14,11 +14,9 @@ namespace WebApplication.Blob
             _blobServiceClient = new BlobServiceClient(connectionString);
         }
 
-        public async void SaveToContainer(NoticiaModel model)
+        public async void SaveToContainer(NoticiaModel model, string nomeArquivo)
         {
             string blobContainerName = "img-noticias";
-
-            string nomeArquivo = $"{Guid.NewGuid().ToString()}.{model.ArquivoImagem.FileName.Split(".")[1]}";
 
             BlobContainerClient blobContainerClient = _blobServiceClient.GetBlobContainerClient(blobContainerName);
 

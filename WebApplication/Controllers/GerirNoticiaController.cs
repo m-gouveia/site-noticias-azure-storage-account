@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using WebApplication.Blob;
 using WebApplication.Models;
+using WebApplication.Repository;
 
 namespace WebApplication.Controllers
 {
     public class GerirNoticiaController : Controller
     {
         private IBlobHandler _blobHandler;
+        private INoticiaRepository _noticiaRepository;
 
-        public GerirNoticiaController(IBlobHandler blobHandler)
+        public GerirNoticiaController(IBlobHandler blobHandler, INoticiaRepository noticiaRepository)
         {
             _blobHandler = blobHandler;
+            _noticiaRepository = noticiaRepository;
         }
 
         public IActionResult Index()
@@ -21,7 +25,18 @@ namespace WebApplication.Controllers
         [HttpPost]
         public void Salvar(NoticiaModel model)
         {
-            _blobHandler.SaveToContainer(model);
+            try
+            {
+                string nomeArquivo = $"{Guid.NewGuid()}.{model.ArquivoImagem.FileName.Split(".")[1]}";
+
+                _blobHandler.SaveToContainer(model, nomeArquivo);
+                _noticiaRepository.SalvarNoticia(model, nomeArquivo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }
